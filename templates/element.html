@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Room Management</title>
+{% endblock %}
+
+{% block body %}
+<div  class="content">
+    <h1 class="text-center m-5">Room</h1>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Room</th>
+                    <th>Number</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ room.number }}</td>
+                    <td>{{ room.price }}</td>
+                    <td>{{ room.description }}</td>
+                </tr>    
+            </tbody>
+        </table>
+    </div>
+   
+
+   
+</div>
+{% endblock %}

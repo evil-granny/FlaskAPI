@@ -1,0 +1,12 @@
+body, html {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.form-inline{
+    width: 100%;
+}
+
+#room-add{
+    width: 500px;
+}
