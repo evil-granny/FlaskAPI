@@ -7,55 +7,55 @@
 {% block body %}
 <div  class="content">
     <h1 class="text-center m-5">Room Management</h1>
-    
+
     <div class="container form">
         <div class="row m-5 justify-content-center align-items-center" >
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Add Room
+                Add Room
             </button>
             <div id="collapseExample" class="collapse">
-                <form  action="/room/" method="POST" class="form-group d-flex flex-column text-center">
-                    <input type="text" name="number" placeholder="Title" id="room-add" class="form-control m-2">
-                    <input type="text" name="price" placeholder="Price" id="room-add" class="form-control m-2">
-                    <input type="text" name="description" placeholder="Description" id="room-add" class="form-control m-2">
+                <form  action="/rooms/" method="POST" class="form-group d-flex flex-column text-center">
+                    <input type="text" name="number" placeholder="Number" id="number" class="form-control m-2">
+                    <input type="text" name="price" placeholder="Price" id="price" class="form-control m-2">
+                    <input type="text" name="description" placeholder="Description" id="description" class="form-control m-2">
                     <button type="submit" class="btn btn-success">Add room</button>
                 </form>
             </div>
-            
+
         </div>
     </div>
-    {% if room|length < 1 %}
+    {% if rooms | length < 1 %}
     <h4 class="text-center">There are no room. Create one above!</h4>
     {% else %}
     <div class="container">
         <table class="table">
             <thead class="thead-dark">
-                <tr>
-                    <th>Room</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
+            <tr>
+                <th>Room</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
             </thead>
-            
-            {% for room in room %}
+
+            {% for room in rooms %}
             <tbody>
-                <tr>
-                    <td>{{ room.number }}</td>
-                    <td>{{ room.price }}</td>
-                    <td>{{ room.description }}</td>
-                    <td>
-                        <a href="/delete/{{room.id}}" class="btn btn-danger">Delete</a>
-                        <a href="/update/{{room.id}}" class="btn btn-warning">Update</a>
-                    </td>
-                </tr>    
+            <tr>
+                <td>{{ room.number }}</td>
+                <td>{{ room.price }}</td>
+                <td>{{ room.description }}</td>
+                <td>
+                    <a href="/delete/{{room.id}}" class="btn btn-danger">Delete</a>
+                    <a href="/update/{{room.id}}" class="btn btn-warning">Update</a>
+                </td>
+            </tr>
             </tbody>
             {% endfor %}
         </table>
     </div>
-   
+
     {% endif %}
 
-   
+
 </div>
 {% endblock %}

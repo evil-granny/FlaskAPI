@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 
 class RoomItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.Integer, nullable=False)
+    number = db.Column(db.Integer, nullable=True)
     price = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(200), nullable=False)
 
@@ -25,15 +25,15 @@ def index():
 @app.route('/rooms/<int:id>', methods=['GET'])
 def element(id):
     room_to_show = RoomItem.query.get(id)
-    return render_template('element.html', room  =room_to_show)
+    return render_template('element.html', room=room_to_show)
 
 
 @app.route('/rooms/', methods=['POST', 'GET'])
 def list():
     if request.method == 'POST':
-        room_number = request.json['number']
-        room_price = request.json['price']
-        room_desc = request.json['description']
+        room_number = request.form.get('number')
+        room_price = request.form.get('price')
+        room_desc = request.form.get('description')
         new_room = RoomItem(
             number=room_number, price=room_price, description=room_desc)
 
@@ -51,7 +51,7 @@ def list():
         return render_template('list.html', rooms=rooms)
 
 
-@app.route('/delete/<int:id>', methods=['DELETE'])
+@app.route('/delete/<int:id>', methods=['GET','DELETE'])
 def delete(id):
     room_to_delete = RoomItem.query.get(id)
     try:
@@ -61,13 +61,13 @@ def delete(id):
     except:
         return 'There was a problem deleting that room'
 
-@app.route('/update/<id>', methods=["PUT"])
+@app.route('/update/<int:id>', methods=['GET','POST'])
 def update(id):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         room = RoomItem.query.get(id)
-        room.number = request.json["number"]
-        room.price = request.json['price']
-        room.description = request.json['description']
+        room.number = request.form.get('number')
+        room.price = request.form.get('price')
+        room.description = request.form.get('description')
         try:
             db.session.commit()
             return redirect('/rooms/')
